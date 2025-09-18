@@ -24,7 +24,7 @@ function draw() {
 function mousePressed() {
   if (mouseButton === LEFT && mouseIsPressed) {
     if (suncolor >= 3) {
-      suncolor = 1
+      suncolor = 0
     }
    suncolor += 1
   }
@@ -36,6 +36,9 @@ function sun() {
   else if (suncolor === 2) {
     fill(225, 100, 0)
   }
+  else{
+    fill(255, 255, 255)
+  }
   circle(mouseX, mouseY, 100)
 }
  
@@ -46,7 +49,7 @@ fill(50+(mouseX/2.5), 50+(mouseX/2.5), mouseX/4)
 triangle(width/2, height/2.5, 400, 600, 600, 600)
 }
 function clouds() {
-  fill("white")
+  fill(220, 220, 220)
   circle(400, 125, 75) //Each Cloud
   circle(450, 150, 75)
   circle(500, 135, 75)

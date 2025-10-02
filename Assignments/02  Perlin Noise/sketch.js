@@ -2,20 +2,24 @@
 // Caleb Schwab
 // 09/29/25
 
-let rectWidth = 5;
+let rectWidth = 1;
 let noiseTime = 0;
-let noiseOff = 0.001;
+let noiseOff = 0.01;
+let noiseStart = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   // for now generate the terrain once
   // generateTerrain();
-  frameRate(5);
+  // frameRate(5);
 }
 
 function generateTerrain() {
 // Use loop to generate and draw several rectangles side to side to look like 2D terrain.
 rectMode(CORNERS);
+let highY = 0;
+let highX = 0;
+let highestY = 0;
 
 for(let x = 0; x < width; x += rectWidth){
   // generate a random height. !!NOTE!! change this from random() to noise()
@@ -26,21 +30,23 @@ for(let x = 0; x < width; x += rectWidth){
   // calculate the upper-right corner of rect
   let x2 = x + rectWidth;
   let y2 = height - rectHeight;
-  let highestX = 0;
-  let highestY = 0;
-  noStroke();
-  fill(50, 150, 50);
+  
   rect(x, height, x2, y2); // Draw the rectangle
-  fill(100,75,25)
-  rect(x, height, x2, y2+50)// Draw another set of rectangles 50 pixels lower for dirt
   noiseTime += noiseOff; // change noiseTime each rectangle by noiseOff amount
   
+  // Find the highest peak
+  if(rectHeight > highestY){
+    highestY = rectHeight;
+    highX = x2;
+    highY = y2;
+    
+  }
 }
-if(rectHeight > highestY){
-  highestY = rectHeight;
-  highestX = x2;
-}
-rect(highestX, highestY, highestX-10, highestY-20)
+drawFlag(highX, highY);
+
+  noiseStart += noiseOff;
+  noiseTime = noiseStart;
+
 
 rectMode(CORNER); // revert rectangle mode to default
 }
@@ -53,13 +59,22 @@ function draw() {
 
 function keyPressed(){
   if(keyCode === 37){// left arrow to decrease rectWidth by one until it hits 5
-    if(rectWidth > 5){
+    if(rectWidth > 1){
       rectWidth -= 1;
     }
   }
   if(keyCode === 39){
-    if(rectWidth < 15){// right arrow to increase rectWidth by one until it hits 15
+    if(rectWidth < 10){// right arrow to increase rectWidth by one until it hits 15
       rectWidth += 1;
     }
   }
+}
+
+function drawFlag(x,y){
+  rectMode(CORNER);
+  stroke(100, 100, 100);
+  line(x, y, x, y-40);
+  fill(255, 0, 0);
+  triangle(x, y-40, x, y-20, x+10, y-30)
+  stroke(0);
 }

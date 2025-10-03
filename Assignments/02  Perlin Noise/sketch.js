@@ -30,7 +30,7 @@ for(let x = 0; x < width; x += rectWidth){
   // calculate the upper-right corner of rect
   let x2 = x + rectWidth;
   let y2 = height - rectHeight;
-  
+  fill(255)
   rect(x, height, x2, y2); // Draw the rectangle
   noiseTime += noiseOff; // change noiseTime each rectangle by noiseOff amount
   
@@ -72,9 +72,9 @@ function keyPressed(){
 
 function drawFlag(x,y){
   rectMode(CORNER);
-  stroke(100, 100, 100);
+  stroke(100, 100, 100); //line color grey
   line(x, y, x, y-40);
-  fill(255, 0, 0);
-  triangle(x, y-40, x, y-20, x+10, y-30)
-  stroke(0);
+  fill(255, 0, 0); //Flag color red
+  triangle(x, y-40, x, y-25, x+10, y-33)//draws triangle using the x, y but moves it to the proper location
+  stroke(0);//resets stroke to black
 }

@@ -20,6 +20,8 @@ rectMode(CORNERS);
 let highY = 0;
 let highX = 0;
 let highestY = 0;
+let sumY = 0;
+let avgY = 0;
 
 for(let x = 0; x < width; x += rectWidth){
   // generate a random height. !!NOTE!! change this from random() to noise()
@@ -41,9 +43,11 @@ for(let x = 0; x < width; x += rectWidth){
     highY = y2;
     
   }
+  sumY = sumY + rectHeight
+  avgY = sumY/x
 }
 drawFlag(highX, highY);
-
+drawAverage(avgY);
   noiseStart += noiseOff;
   noiseTime = noiseStart;
 
@@ -76,5 +80,12 @@ function drawFlag(x,y){
   line(x, y, x, y-40);
   fill(255, 0, 0); //Flag color red
   triangle(x, y-40, x, y-25, x+10, y-33)//draws triangle using the x, y but moves it to the proper location
-  stroke(0);//resets stroke to black
+}
+
+function drawAverage(y){
+  rectMode(CENTER);
+  noStroke();
+  fill(255, 50, 50, 100);// color red and also slightly translucent
+  rect(width/2, height-y, width, height*0.01)
+  stroke(0); //resets stroke to black
 }

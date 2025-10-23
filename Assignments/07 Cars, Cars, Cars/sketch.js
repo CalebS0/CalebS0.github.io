@@ -10,8 +10,8 @@ let myVehicle;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   for(let i =0; i<20; i++){
-   westbound.push(new Vehicle(Math.floor(random(1,5)), 1, Math.floor(random(2))));
-   eastbound.push(new Vehicle(Math.floor(random(1,5)), 0, Math.floor(random(2))));
+   westbound.push(new Vehicle(Math.floor(random(1,5)), 0, Math.floor(random(2))));
+   eastbound.push(new Vehicle(Math.floor(random(1,5)), 1, Math.floor(random(2))));
   }
   
 }
@@ -54,10 +54,10 @@ class Vehicle{
     noStroke();
     fill(this.c); // fill with color
     if(this.type === 1){// Car
-      rect(this.x, this.y, 50,  20);
+      rect(this.x, this.y+5, 50,  20);
       fill(100);
       for(let i = 5; i<=35; i += 30){
-        for(let y = 5; y>=-30; y-=25){
+        for(let y = 0; y>=-35; y-=25){
           rect(this.x+i, this.y-y, 10, 5, 2, 2)
         }
       }
@@ -70,6 +70,7 @@ class Vehicle{
           rect(this.x+i, this.y-y, 10, 5, 2, 2)
         }
       }
+      strokeWeight(2);
       stroke(50);
       fill(255);
       if(this.d === 1){
@@ -78,6 +79,7 @@ class Vehicle{
       else if(this.d === 0){
         rect(this.x, this.y, 10, 30);
       }
+      strokeWeight(0)
     }
   }
 
@@ -114,4 +116,14 @@ class Vehicle{
   if(this.change === 1) this.changeColor();
   }
 
+}
+
+function mousePressed(){
+  if(mouseButton)
+  if(keyIsDown(SHIFT)){
+    westbound.push(new Vehicle(Math.floor(random(1,5)), 0, Math.floor(random(2))));
+  }
+  else{
+    eastbound.push(new Vehicle(Math.floor(random(1,5)), 1, Math.floor(random(2))));
+  }
 }

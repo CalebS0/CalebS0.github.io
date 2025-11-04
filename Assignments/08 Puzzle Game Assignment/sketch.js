@@ -1,21 +1,15 @@
-// 2D Array Basics
+// Puzzle Game Assignment
 // Caleb Schwab
-// 11/03/25
+// 11/4/25
 
-// 0 (black) 255 (white)
-// grid i s 5 x 4 in dimension
+let grid = [
+  []
+]
 
- let grid = [
-  [0  , 0  , 0  , 255, 0  ],
-  [255, 0  , 255, 0  , 255],
-  [255, 255, 0  , 255, 255],
-  [0  , 255, 0  , 0  , 0  ]
- ];
+let rows = grid.length;
+let cols = grid[0].length;
 
- let rows = grid.length;
- let cols = grid[0].length;
-
- let squareSize = 60;
+let squareSize = 100;
 
 function setup() {
   createCanvas(squareSize*cols, squareSize*rows);
@@ -36,9 +30,6 @@ function mousePressed(){
       // ALWAYS; flip the "focused" tile
       flip(x,y);
 
-    }
-    else{ 
-      flip(x,y);
       // IF THEY EXIST:
       // flip our NSEW neighbours (cross pattern)
       if(x+1 < cols) flip(x+1, y);
@@ -46,9 +37,9 @@ function mousePressed(){
       if(y-1 >= 0) flip(x,y-1);
       if(y+1 < rows) flip(x, y+1);
     }
+    else flip(x,y);
   }
 }
-
 function getCurrentX(){
   // determine current col of mouse position
   let constrainedX = constrain(mouseX, 0, width-1);

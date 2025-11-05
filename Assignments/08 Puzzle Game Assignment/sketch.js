@@ -3,8 +3,11 @@
 // 11/4/25
 
 let grid = [
-  []
-]
+  [0,0,0,0,0],
+  [0,0,0,0,0],
+  [0,0,0,0,0],
+  [0,0,0,0,0]
+];
 
 let rows = grid.length;
 let cols = grid[0].length;
@@ -13,6 +16,15 @@ let squareSize = 100;
 
 function setup() {
   createCanvas(squareSize*cols, squareSize*rows);
+  randomColor();
+}
+
+function randomColor(){
+  for(let y = 0; y < rows; y++){
+    for(let x = 0; x < cols; x ++){
+      grid[y][x] = floor(random(2))*255; // Create Grid
+    }
+  }
 }
 
 function draw() {
@@ -53,7 +65,7 @@ function getCurrentY(){
 }
 
 function flip(x,y){
-  // takes a til @ x,y and inverts its value
+  // takes a tile @ x,y and inverts its value
   if(grid[y][x] === 0) grid[y][x] = 255;
   else grid[y][x] = 0;
 }

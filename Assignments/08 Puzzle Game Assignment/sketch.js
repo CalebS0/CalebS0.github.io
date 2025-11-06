@@ -31,6 +31,7 @@ function draw() {
   background(220);
   renderGrid();
   print(getCurrentX(), getCurrentY())
+  win();
 }
 
 function mousePressed(){
@@ -38,7 +39,7 @@ function mousePressed(){
   let x = getCurrentX();
   let y = getCurrentY();
   if(mouseX <= width && mouseY <= height){
-    if(keyIsDown(SHIFT)){
+    if(keyIsDown(SHIFT) === false){
       // ALWAYS; flip the "focused" tile
       flip(x,y);
 
@@ -77,6 +78,24 @@ for(let y = 0; y < rows; y++){
     let fillColor = grid[y][x];
     fill(fillColor);
     square(squareSize*x, squareSize*y, squareSize);
+    }
   }
 }
+function win(){
+  let gridColor = grid[0][0];
+  for(let y = 0; y < rows; y++){
+    for(let x = 0; x < cols; x++){
+      let fillColor = grid[y][x];
+      if(gridColor !== fillColor){
+        return;
+      }
+      if(gridColor === 0){
+        fill(255);
+      }
+      else fill(0);
+    }
+  }
+
+  textSize(30);
+  text("YOU WIN!", width/2, height/2);
 }

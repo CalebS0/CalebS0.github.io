@@ -17,6 +17,7 @@ async function loadAssets(){
   hand = await loadImage("assets/hand.jpg");
   nuit = await loadImage("assets/nuit.jpg");
   race = await loadImage("assets/race.jpg");
+  butterfly = await loadImage("assets/butterfly.jpg");
 
 }
 
@@ -37,7 +38,7 @@ setPixelOneD(index, r, g, b);
 
 function draw() {
   background(220);
-  image(chip, 0, 0);
+  image(butterfly, 0, 0);
   // image(race,0,600);
   // image(nuit,0,1200);
   // image(hand,0,1800);
@@ -136,21 +137,27 @@ function mirror(){
 }
 
 function rotateImg(){
+  let srcPixels = structuredClone(pixels);
   for(let x = 0; x < width; x ++){ // runs through all pixels
     for(let y = 0; y < height; y ++){
       let i = (width*y + x) *4
-      let r = pixels[i];
-      let g = pixels[i+1];
-      let b = pixels[i+2];
-      if(x > width/2 && y < height/2){
-        setPixel(x,y+height/2,r,g,b)
-      }
-      if(x > width/2 && y > height/2){
-        setPixel(x-width/2,y,r,g,b)
-      }
+      let r = srcPixels[i];
+      let g = srcPixels[i+1];
+      let b = srcPixels[i+2];
       if(x < width/2 && y < height/2){
-        setPixel(x+width/2,y,r,g,b)
+        setPixel(x+width/2, y, r, g, b)
       }
+      else if(x > width/2 && y < height/2){
+        setPixel(x, y+height/2, r, g, b)
+      }
+      else if(x > width/2 && y > height/2){
+        setPixel(x-width/2, y, r, g, b)
+      }
+      else setPixel(x, y-height/2, r, g, b)
     }
   }
+}
+
+function xBlur(){
+  let srcPixels = structuredClone(pixels);
 }
